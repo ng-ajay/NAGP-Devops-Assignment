@@ -26,21 +26,13 @@ pipeline {
             }
         }
    
-        stage('Sonar analysis begin') {
-                steps {
-                   bat "${Scan_path} begin  /k:\"sqs:NAGP-Assignment\""
-                }
-            }
+
           stage('code build') {
             steps {   
                 bat "dotnet build"
             }
         }
 
-             stage('Sonar analysis end') {
-            steps {
-                 bat "${Scan_path} end"  
-            }
         }
     }
 }
