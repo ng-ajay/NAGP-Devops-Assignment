@@ -28,7 +28,12 @@ pipeline {
    
           stage('code build') {
             steps {   
-                bat "dotnet build"
+                bat " dotnet build -c Release -o  WebApplication4/app/build WebApplication4.sln"
+            }
+        }
+          stage('docker image build') {
+            steps {   
+                bat "docker build -t i_ajaysrivastava_master -f Dockerfile ."
             }
         }
 
