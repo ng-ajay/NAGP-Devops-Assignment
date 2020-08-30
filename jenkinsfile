@@ -32,6 +32,11 @@ pipeline {
                 bat "dotnet build"
             }
         }
+          stage('docker image build') {
+            steps {   
+                bat "docker build -t i_ajaysrivastava_master -f Dockerfile ."
+            }
+        }
 
          
     }
