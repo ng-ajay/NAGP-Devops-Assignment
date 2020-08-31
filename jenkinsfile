@@ -39,12 +39,14 @@ pipeline {
         }
           stage('docker container precheck') {
               steps {
+                  script{
                 containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
                   if(containerID)
 				    {
                         bat "docker stop ${containerID}"
 					    bat "docker rm -f ${containerID}"
 				     }
+                  }
               }
           }
             stage('docker image run') {
