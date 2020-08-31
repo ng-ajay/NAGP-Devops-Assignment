@@ -28,19 +28,19 @@ pipeline {
    
           stage('code build') {
             steps {   
-                bat " dotnet build -c Release -o  WebApplication4/app/build WebApplication4.sln"
+                bat " dotnet build -c Release"
             }
         }
           stage('docker image build') {
             steps {   
-                bat "docker build -t i_ajaysrivastava_master -f Dockerfile ."
+                bat " docker build -t i_ajaysrivastava_master ."
+            }
+             steps {   
+                bat "docker run -d -p 6000:80 --name nagp-devops i_ajaysrivastava_master"
             }
         }
 
-           stage('docker image build') {
-            steps {   
-                bat "docker build -t i_ajaysrivastava_master -f Dockerfile ."
-            }
-        }
+        
+
     }
 }
