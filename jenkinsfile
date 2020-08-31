@@ -32,7 +32,8 @@ pipeline {
             }
         }
           stage('docker image build') {
-            steps {   
+            steps { 
+                bat "cd WebApplication4"  
                 bat " docker build -t i_ajaysrivastava_master ."
             }
   
