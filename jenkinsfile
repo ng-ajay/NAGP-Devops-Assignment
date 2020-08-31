@@ -39,7 +39,7 @@ pipeline {
         }
           stages('docker container precheck'){
               steps {
-                containerID = powershell(returnStdout: true, script:docker ps --filter name=c_ajaysrivastava_master --format '{{.ID}}')
+                containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
                   if(containerID)
 				    {
                         bat "docker stop ${containerID}"
