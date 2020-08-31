@@ -40,7 +40,7 @@ pipeline {
 
             stage('docker image run') {
                 steps {   
-                            bat "docker run -d -p 6000:80 --name nagp-devops i_ajaysrivastava_master"
+                            bat "docker run -d -p 8081:80 --name nagp-devops i_ajaysrivastava_master"
                         }
             }
 
