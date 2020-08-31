@@ -37,7 +37,7 @@ pipeline {
             }
        
         }
-          stages('docker container precheck'){
+          stage('docker container precheck') {
               steps {
                 containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
                   if(containerID)
