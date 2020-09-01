@@ -56,6 +56,21 @@ pipeline {
             }
         }
     }
+    
+          stage('Run Tests') {
+            parallel {
+                stage('Test On Windows') {
+                    steps {
+                        bat "echo Test On Windows"
+                    }
+                }
+                stage('Test On Linux') {
+                    steps {
+                        bat "echo Test On Linux"
+                    }
+                }
+            }
+        }
 
             stage('docker image run') {
                 steps {   
