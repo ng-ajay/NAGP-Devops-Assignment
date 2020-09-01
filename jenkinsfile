@@ -31,10 +31,9 @@ pipeline {
             }
        
         }
-stage('docker config') {
-    parallel {
+
           stage('docker container precheck') {
- 
+              
               steps {
                   script{
                 containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
@@ -48,14 +47,12 @@ stage('docker config') {
           }
           
             stage('push docker image to dtr') {
-     
+               
                 steps {   
                             bat "docker tag i_ajaysrivastava_master dtr.nagarro.com:443/i_ajaysrivastava_master"
                             bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
                         }
             }
-    }
-}
 
             stage('docker image run') {
                 steps {   
