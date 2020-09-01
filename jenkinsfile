@@ -33,8 +33,7 @@ pipeline {
         }
 	
 	stage('run docker precheck and push image to registry') {
-	
-	parallel {
+	parallel firstBranch:{
           stage('docker container precheck') {
               steps {
                   script{
@@ -47,6 +46,7 @@ pipeline {
                   }
               }
           }
+    },secondBranch: {
           
             stage('push docker image to dtr') {
                 steps {   
@@ -54,6 +54,7 @@ pipeline {
                             bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
                         }
             }
+    }
 	    }
 	    }
 
