@@ -27,7 +27,7 @@ pipeline {
         }
           stage('docker image build') {
             steps { 
-                bat "docker build -t i_ajaysrivastava_master ."
+                bat "docker build -t hello-kube-ajay ."
             }
        
         }
@@ -49,14 +49,14 @@ pipeline {
             stage('push docker image to dtr') {
                
                 steps {   
-                            bat "docker tag i_ajaysrivastava_master dtr.nagarro.com:443/i_ajaysrivastava_master"
-                            bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
+                            bat "docker tag hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
+                            bat "docker push dtr.nagarro.com:443/hello-kube-ajay"
                         }
             }
 
             stage('docker image run') {
                 steps {   
-                            bat "docker run -d -p 8081:80 --name c_ajaysrivastava_master dtr.nagarro.com:443/i_ajaysrivastava_master"
+                            bat "docker run -d -p 8081:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
                         }
             }
 
