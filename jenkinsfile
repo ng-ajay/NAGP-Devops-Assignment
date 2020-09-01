@@ -19,7 +19,7 @@ pipeline {
             }
         }
        
-        
+      
           stage('code build') {
             steps {   
                 bat " dotnet build -c Release"
@@ -31,10 +31,9 @@ pipeline {
             }
        
         }
-	
-	stage('run docker precheck and push image to registry') {
-	parallel( firstBranch:{
+    stage('docker config') {
           stage('docker container precheck') {
+              agent any
               steps {
                   script{
                 containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
@@ -46,17 +45,15 @@ pipeline {
                   }
               }
           }
-    },secondBranch: {
           
             stage('push docker image to dtr') {
+                agent any
                 steps {   
                             bat "docker tag i_ajaysrivastava_master dtr.nagarro.com:443/i_ajaysrivastava_master"
                             bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
                         }
             }
-    })
-	    
-	    }
+    }
 
             stage('docker image run') {
                 steps {   
