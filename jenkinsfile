@@ -32,6 +32,7 @@ pipeline {
        
         }
     stage('docker config') {
+        parallel {
           stage('docker container precheck') {
               agent any
               steps {
@@ -53,6 +54,7 @@ pipeline {
                             bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
                         }
             }
+        }
     }
 
             stage('docker image run') {
