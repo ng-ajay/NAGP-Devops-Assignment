@@ -19,13 +19,7 @@ pipeline {
             }
         }
        
-      
-        stage('Unit Testing') {
-            steps {
-                 echo 'testing'    
-            }
-        }
-   
+        
           stage('code build') {
             steps {   
                 bat " dotnet build -c Release"
@@ -37,6 +31,10 @@ pipeline {
             }
        
         }
+	
+	stage('run docker precheck and push image to registry') {
+	
+	parallel {
           stage('docker container precheck') {
               steps {
                   script{
@@ -56,6 +54,8 @@ pipeline {
                             bat "docker push dtr.nagarro.com:443/i_ajaysrivastava_master"
                         }
             }
+	    }
+	    }
 
             stage('docker image run') {
                 steps {   
