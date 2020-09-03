@@ -32,6 +32,8 @@ pipeline {
        
         }
 
+        stage('simultaneous job'){
+            parallel{
           stage('docker container precheck') {
               
               steps {
@@ -53,7 +55,8 @@ pipeline {
                             bat "docker push dtr.nagarro.com:443/hello-kube-ajay"
                         }
             }
-
+            }
+        }
             stage('docker image run') {
                 steps {   
                             bat "docker run -d -p 8081:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
