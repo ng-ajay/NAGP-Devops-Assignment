@@ -1,21 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-deployment
+  name: nagp-assignment-deployment
   labels:
-    app: testdevops
+    app: nagp-assignment-devops
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: testdevops
+      app: nagp-assignment-devops
   template:
     metadata:
       labels:
-        app: testdevops
+        app: nagp-assignment-devops
     spec:
       containers:
-      - name: testdevops
+      - name: nagp-assignment-devops
         image: dtr.nagarro.com:443/hello-kube-ajay 
         ports:
-        - containerPort: 8082
+        - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nagp-assignment-service
+  labels:
+    run: nagp-assignment-deployment
+spec:
+  type: NodePort
+  ports:
+  - port: 8083
+    targetPort: 80
+    nodePort: 30007
+  selector:
+    run: nagp-assignment-devops
