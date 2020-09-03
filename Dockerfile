@@ -12,3 +12,4 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "WebApplication4.dll"]
 LABEL maintainer="Ajay Srivastava"
+EXPOSE 80
