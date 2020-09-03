@@ -18,19 +18,4 @@ spec:
       - name: nagp-assignment-devops
         image: dtr.nagarro.com:443/hello-kube-ajay 
         ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nagp-assignment-service
-  labels:
-    run: nagp-assignment-deployment
-spec:
-  type: NodePort
-  ports:
-  - port: 8083
-    targetPort: 80
-    nodePort: 30007
-  selector:
-    run: nagp-assignment-devops
+        - containerPort: 8089
