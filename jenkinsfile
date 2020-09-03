@@ -9,7 +9,7 @@ pipeline {
         Nuget_Proxy = "https://api.nuget.org/v3/index.json"
      //   Scan_path = "C:/Users/ajaysrivastava/.dotnet/tools/dotnet-sonarscanner"
         scannerHome = tool name: 'sonar_scanner_dotnet',type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
-        home ='dotnet "C:\Program Files (x86)\Jenkins\tools\hudson.plugins.sonar.MsBuildSQRunnerInstallation\sonar_scanner_dotnet/SonarScanner.MsBuild.dll" begin /k:"sqs:NAGP-Assignment" /n:"sqs:NAGP-Assignment" /v:"1.0.0"'
+        home ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" begin /k:"sqs:NAGP-Assignment" /n:"sqs:NAGP-Assignment" /v:"1.0.0"'
     }
    
     stages {       

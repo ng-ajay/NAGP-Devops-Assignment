@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+  labels:
+    app: testdevops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: testdevops
+  template:
+    metadata:
+      labels:
+        app: testdevops
+    spec:
+      containers:
+      - name: testdevops
+        image: dtr.nagarro.com:443/hello-kube-ajay 
+        ports:
+        - containerPort: 8082
