@@ -7,7 +7,8 @@ pipeline {
    
       environment {
         Nuget_Proxy = "https://api.nuget.org/v3/index.json"
-        Scan_path = "C:/Users/ajaysrivastava/.dotnet/tools/dotnet-sonarscanner"
+     //   Scan_path = "C:/Users/ajaysrivastava/.dotnet/tools/dotnet-sonarscanner"
+        scannerHome = tool name: 'sonar_scanner_dotnet',type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
     }
    
     stages {       
@@ -19,12 +20,28 @@ pipeline {
             }
         }
        
-      
-          stage('code build') {
+     stage('Sonar analysis begin') {
+        steps {
+            withSonarQubeEnv('Test_Sonar') {
+            bat "dotnet ${scannerHome}/SonarScanner.MsBuild.dll begin /k:\"sqs:NAGP-Assignment\" /n:\"sqs:NAGP-Assignment\" /v:\"1.0.0\" "
+            
+            }
+        }
+    }
+
+      stage('code build') {
             steps {   
                 bat " dotnet build -c Release"
             }
         }
+
+    stage('Sonar analysis end') {
+        steps { 
+            withSonarQubeEnv('Test_Sonar') {
+            bat "dotnet ${scannerHome}/SonarScanner.MsBuild.dll end" 
+            } 
+        }
+    }
           stage('docker image build') {
             steps { 
                 bat "docker build -t hello-kube-ajay ."
@@ -38,7 +55,7 @@ pipeline {
               
               steps {
                   script{
-                containerID = powershell(returnStdout: true, script:'docker ps --filter name=c_ajaysrivastava_master --format "{{.ID}}"')
+                containerID = powershell(returnStdout: true, script:'docker ps --filter name=c-hello-kube-ajay --format "{{.ID}}"')
                   if(containerID)
 				    {
                         bat "docker stop ${containerID}"
