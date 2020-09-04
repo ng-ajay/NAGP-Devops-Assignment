@@ -8,7 +8,7 @@ image:
   repository:  dtr.nagarro.com:443/hello-kube-ajay
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -49,7 +49,7 @@ service:
 
 deployment:
   name: "nagp-assignment-deployment"
-  port: 8089
+  port: 80
 
 ingress:
   enabled: false

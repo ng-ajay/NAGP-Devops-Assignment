@@ -10,5 +10,5 @@ spec:
     nodePort: {{.Values.service.nodePort}}
     protocol: TCP
   selector:
-    app: nagp-assignment-devops
+    app: {{.Values.label}}
     
