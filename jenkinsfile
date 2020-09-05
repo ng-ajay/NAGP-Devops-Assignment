@@ -76,12 +76,19 @@ pipeline {
             }
             }
         }
-            // stage('deploy to kubernetes cluster') {
+          
+          stage('deploy to kubernetes cluster') {
                
-            //     steps {   
-            //                 bat "kubectl apply -f demo.yaml"
-            //           }
-            // }
+                steps {   
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kube', namespace: '', serverUrl: 'https://kubernetes.docker.internal:6443') {
+
+                    bat " helm install fourthhelm ./my-chart"
+                   //  bat "helm version"
+                        
+                    }
+                           
+                      }
+            }
             stage('docker image run') {
                 steps {   
                             bat "docker run -d -p 8081:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
