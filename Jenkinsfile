@@ -9,8 +9,8 @@ pipeline {
         Nuget_Proxy = "https://api.nuget.org/v3/index.json"
      //   Scan_path = "C:/Users/ajaysrivastava/.dotnet/tools/dotnet-sonarscanner"
         scannerHome = tool name: 'sonar_scanner_dotnet',type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
-        home ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" begin /k:"sqs:NAGP-Assignment" /n:"sqs:NAGP-Assignment" /v:"1.0.0"'
-        homeEnd ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" end'
+      //  home ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" begin /k:"sqs:NAGP-Assignment" /n:"sqs:NAGP-Assignment" /v:"1.0.0"'
+      //  homeEnd ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" end'
     }
    
     stages {       
@@ -25,7 +25,7 @@ pipeline {
      stage('Sonar analysis begin') {
         steps {
             withSonarQubeEnv('Test_Sonar') {
-            bat home
+            bat "dotnet ${scannerHome}/SonarScanner.MsBuild.dll begin /k:\"sqs:NAGP-Assignment\"  /n:\"sqs:NAGP-Assignment\" /v:\"1.0.0\"  "
             
             }
         }
@@ -40,7 +40,7 @@ pipeline {
     stage('Sonar analysis end') {
         steps { 
             withSonarQubeEnv('Test_Sonar') {
-            bat homeEnd 
+             bat "dotnet ${scannerHome}/SonarScanner.MsBuild.dll end"
             } 
         }
     }
