@@ -22,14 +22,14 @@ pipeline {
             }
         }
        
-    //  stage('Sonar analysis begin') {
-    //     steps {
-    //         withSonarQubeEnv('Test_Sonar') {
-    //         bat home
+     stage('Sonar analysis begin') {
+        steps {
+            withSonarQubeEnv('Test_Sonar') {
+            bat home
             
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 
       stage('code build') {
             steps {   
@@ -37,13 +37,13 @@ pipeline {
             }
         }
 
-    // stage('Sonar analysis end') {
-    //     steps { 
-    //         withSonarQubeEnv('Test_Sonar') {
-    //         bat homeEnd 
-    //         } 
-    //     }
-    // }
+    stage('Sonar analysis end') {
+        steps { 
+            withSonarQubeEnv('Test_Sonar') {
+            bat homeEnd 
+            } 
+        }
+    }
           stage('docker image build') {
             steps { 
                 bat "docker build -t hello-kube-ajay ."
