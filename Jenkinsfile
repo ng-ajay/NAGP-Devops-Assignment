@@ -7,10 +7,8 @@ pipeline {
    
       environment {
         Nuget_Proxy = "https://api.nuget.org/v3/index.json"
-     //   Scan_path = "C:/Users/ajaysrivastava/.dotnet/tools/dotnet-sonarscanner"
         scannerHome = tool name: 'sonar_scanner_dotnet',type: 'hudson.plugins.sonar.MsBuildSQRunnerInstallation'
-      //  home ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" begin /k:"sqs:NAGP-Assignment" /n:"sqs:NAGP-Assignment" /v:"1.0.0"'
-      //  homeEnd ='dotnet "C:/Program Files (x86)/Jenkins/tools/hudson.plugins.sonar.MsBuildSQRunnerInstallation/sonar_scanner_dotnet/SonarScanner.MsBuild.dll" end'
+
     }
    
     stages {       
@@ -77,16 +75,12 @@ pipeline {
             }
         }
           
-          stage('deploy to kubernetes cluster') {
+          stage('Helm Deployment') {
                
                 steps {   
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kube', namespace: '', serverUrl: 'https://kubernetes.docker.internal:6443') {
 
-                    bat " helm install -f ./values.yaml fourthhelm ./my-chart"
-                   //  bat "helm version"
-                        
-                    }
-                           
+                    bat " helm install nagp-assignment-chart ./nagp-assignment-chart"
+         
                       }
             }
             stage('docker image run') {
