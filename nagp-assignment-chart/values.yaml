@@ -42,9 +42,9 @@ label: "nagp-assignment-devops"
 
 service:
   type: NodePort
-  port: 8089
+  port: 6000
   targetPort: 80
-  nodePort: 31115
+  nodePort: 30157
   name: "nagp-assignment-service"
 
 deployment:
