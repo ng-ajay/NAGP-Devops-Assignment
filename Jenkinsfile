@@ -31,7 +31,7 @@ pipeline {
 
       stage('code build') {
             steps {   
-                bat " dotnet build -c Release"
+                bat "dotnet build -c Release"
             }
         }
 
@@ -49,9 +49,9 @@ pipeline {
        
         }
 
-        stage('Docker config'){
+        stage('Docker parallel steps configuration'){
             parallel{
-          stage('docker container precheck') {
+          stage('Docker container precheck') {
               
               steps {
                   script{
@@ -65,7 +65,7 @@ pipeline {
               }
           }
           
-            stage('push docker image to dtr') {
+            stage('Push docker image to dtr') {
                
                 steps {   
                             bat "docker tag hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
@@ -74,9 +74,10 @@ pipeline {
             }
             }
         }
-         stage('docker deployment') {
+        
+         stage('Docker deployment') {
                 steps {   
-                            bat "docker run -d -p 8081:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
+                            bat "docker run -d -p 6000:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
                         }
             }
          
@@ -88,8 +89,6 @@ pipeline {
          
                       }
             }
-
-        
 
     }
 }
