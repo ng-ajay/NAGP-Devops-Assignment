@@ -78,15 +78,15 @@ pipeline {
          stage('Docker deployment') {
                 steps {   
                             bat "docker run -d -p 6000:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
-                        }
+                      }
             }
          
           stage('Helm chart Deployment') {
                
                 steps {   
 
-                    bat "helm install nagp-assignment-chart ./nagp-assignment-chart"
-         
+                             bat "kubectl create ns ajaysrivastava-nagp-assignment-master-${BUILD_NUMBER}"
+                             bat "helm install nagp-assignment-chart ./nagp-assignment-chart -n ajaysrivastava-nagp-assignment-master-${BUILD_NUMBER}"
                       }
             }
 
