@@ -49,13 +49,13 @@ pipeline {
        
         }
 
-        stage('Parallel jobs for docker'){
+        stage('Docker config'){
             parallel{
           stage('docker container precheck') {
               
               steps {
                   script{
-                containerID = powershell(returnStdout: true, script:'docker ps --filter name=c-hello-kube-ajay --format "{{.ID}}"')
+                containerID = powershell(returnStdout: true, script:'docker ps -af name=c-hello-kube-ajay --format "{{.ID}}"')
                   if(containerID)
 				    {
                         bat "docker stop ${containerID}"
@@ -74,19 +74,19 @@ pipeline {
             }
             }
         }
-          
-          stage('Helm Deployment') {
-               
-                steps {   
-
-                    bat " helm install nagp-assignment-chart ./nagp-assignment-chart"
-         
-                      }
-            }
-            stage('docker image run') {
+         stage('docker deployment') {
                 steps {   
                             bat "docker run -d -p 8081:80 --name c-hello-kube-ajay dtr.nagarro.com:443/hello-kube-ajay"
                         }
+            }
+         
+          stage('Helm chart Deployment') {
+               
+                steps {   
+
+                    bat "helm install nagp-assignment-chart ./nagp-assignment-chart"
+         
+                      }
             }
 
         
