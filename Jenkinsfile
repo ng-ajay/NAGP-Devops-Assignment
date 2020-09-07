@@ -84,9 +84,13 @@ pipeline {
           stage('Helm chart Deployment') {
                
                 steps {   
-                             bat "helm uninstall nagp-assignment-chart --keep-history -n ajaysrivastava-nagp-assignment-master || true"
-                             bat "kubectl create ns ajaysrivastava-nagp-assignment-master || true"
-                             bat "helm install nagp-assignment-chart ./nagp-assignment-chart -n ajaysrivastava-nagp-assignment-master"
+                             try {
+                             bat "kubectl create ns ajaysrivastava-nagp-assignment-master"
+                             } catch(err){
+                                 echo err.getMessage()
+                                 echo "Error detected, but we will continue."
+                             }
+                             bat "helm upgrade nagp-assignment-chart-master ./nagp-assignment-chart --install -n ajaysrivastava-nagp-assignment-master"
                       }
                     
             }
