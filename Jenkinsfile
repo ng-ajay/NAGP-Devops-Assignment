@@ -85,8 +85,8 @@ pipeline {
                
                 steps {   
 
-                             bat "kubectl create ns ajaysrivastava-nagp-assignment-master-${BUILD_NUMBER}"
-                             bat "helm install nagp-assignment-chart ./nagp-assignment-chart -n ajaysrivastava-nagp-assignment-master-${BUILD_NUMBER}"
+                             bat "kubectl create ns ajaysrivastava-nagp-assignment-master"
+                             bat "helm install nagp-assignment-chart ./nagp-assignment-chart -n ajaysrivastava-nagp-assignment-master"
                       }
             }
 
