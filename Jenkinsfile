@@ -85,12 +85,12 @@ pipeline {
                
                 steps {   
                     script {
-                             try {
+                            namespace = powershell(returnStdout: true, script:'kubectl get ns ajaysrivastava-nagp-assignment-master  -o=custom-columns=NAME:.metadata.name')
+                             
+                             if(!namespace){
                              bat "kubectl create ns ajaysrivastava-nagp-assignment-master"
-                             } catch(err){
-                                 echo err.getMessage()
-                                 echo "Error detected, but we will continue."
                              }
+                         
                     }
                              bat "helm upgrade nagp-assignment-chart ./nagp-assignment-chart --install -n ajaysrivastava-nagp-assignment-master"
                       }
