@@ -85,7 +85,7 @@ pipeline {
                
                 steps {   
                     script {
-                            namespace = powershell(returnStdout: true, script:'kubectl get ns ajaysrivastava-nagp-assignment-master  -o=custom-columns=NAME:.metadata.name')
+                            namespace = powershell(returnStdout: true, script:'kubectl get ns ajaysrivastava-nagp-assignment-master  -o=custom-columns=NAME:.metadata.name --ignore-not-found')
                              
                              if(!namespace){
                              bat "kubectl create ns ajaysrivastava-nagp-assignment-master"
