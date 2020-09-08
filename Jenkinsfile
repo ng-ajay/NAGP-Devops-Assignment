@@ -92,7 +92,7 @@ pipeline {
                                  echo "Error detected, but we will continue."
                              }
                     }
-                             bat "helm upgrade nagp-assignment-chart-master ./nagp-assignment-chart --install -n ajaysrivastava-nagp-assignment-master"
+                             bat "helm upgrade nagp-assignment-chart ./nagp-assignment-chart --install -n ajaysrivastava-nagp-assignment-master"
                       }
                     
             }
